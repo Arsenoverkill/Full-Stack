@@ -12,10 +12,28 @@ router.post("/", authMiddleware, async (req: Request, res: Response) => {
 
   if (!validation.success) {
     res.status(400).json({ error: validation.error.flatten().fieldErrors });
+    return;
   }
 
-  const twit = await twistService.createTwit(req.body);
-  res.status(201).json(twit);
+  try {
+    const twit = await twistService.createTwit(req.body);
+    res.status(201).json(twit);
+    return;
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+    return;
+  }
+});
+router.delete("/:id", authMiddleware, async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const deletedTwit = await twistService.deleted(id);
+    res.status(201).json(deletedTwit);
+    return;
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+    return;
+  }
 });
 
 router.get("/", async (req: Request, res: Response) => {

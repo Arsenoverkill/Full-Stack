@@ -5,6 +5,7 @@ import path from "path";
 import { PrismaClient } from "@prisma/client";
 import { logger } from "./utils/log";
 import helmet from "helmet";
+import cors from "cors";
 import compression from "compression";
 
 dotenv.config();
@@ -18,6 +19,7 @@ app.set("view engine", "ejs");
 async function main() {
   app.use(helmet());
   app.use(compression());
+  app.use(cors());
   app.use(express.json());
 
   app.use("/api/twits", router);

@@ -8,6 +8,7 @@ export const authMiddleware = async (
   const authHeader = req.headers.authorization;
   if (!authHeader) {
     res.status(401).json({ error: "Unauthorized" });
+    return;
   }
   next();
 };

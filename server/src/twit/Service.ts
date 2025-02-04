@@ -4,17 +4,29 @@ import { logger } from "@/utils/log";
 
 export class TwitService {
   private prisma = new PrismaClient();
-  createTwit(twit: IcreateTwit): Promise<Twit> {
+  async createTwit(twit: IcreateTwit): Promise<Twit> {
     try {
-      return this.prisma.twit.create({ data: twit });
+      return await this.prisma.twit.create({ data: twit });
     } catch (error) {
       logger.error(error);
       throw new Error("Something went wrong");
     }
   }
+  async deleted(id: string): Promise<Twit> {
+    try {
+      return await this.prisma.twit.delete({
+        where: {
+          id: id,
+        },
+      });
+    } catch (error) {
+      logger.error(error);
+      throw new Error("Failed to delete twit");
+    }
+  }
   async getTwits(): Promise<Twit[]> {
     try {
-      return this.prisma.twit.findMany();
+      return await this.prisma.twit.findMany();
     } catch (error) {
       logger.error(error);
       throw new Error("Something went wrong");
