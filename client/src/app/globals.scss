@@ -3,12 +3,17 @@
   padding: 0;
   margin: 0;
 }
-
+body {
+  background: linear-gradient(100deg, #627bf7, #c850c0);
+}
 a {
   color: inherit;
   text-decoration: none;
 }
-
+.container {
+  max-width: 95%;
+  margin: 0 auto;
+}
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
