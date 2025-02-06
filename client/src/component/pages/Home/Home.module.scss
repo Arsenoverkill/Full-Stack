@@ -1,5 +1,5 @@
 .Home {
-  padding-block: 30px;
+  padding-block: 2rem;
   .home {
     h1 {
       text-align: center;
@@ -13,7 +13,7 @@
       grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       grid-gap: 20px;
       justify-items: center;
-      margin-top: 40px;
+      margin-top: 2.2rem;
       .twit {
         width: 100%;
         background: linear-gradient(130deg, #ffffff, #f1f1f1);

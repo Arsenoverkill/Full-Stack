@@ -59,7 +59,7 @@ const Home = () => {
     <div className={scss.Home}>
       <div className="container">
         <div className={scss.home}>
-          <h1>Twits</h1>
+          <h1>Twits </h1>
           <div className={scss.twits}>
             {api.map((twit) => (
               <div className={scss.twit} key={twit.id}>

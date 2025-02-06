@@ -36,6 +36,23 @@ router.delete("/:id", authMiddleware, async (req: Request, res: Response) => {
   }
 });
 
+router.patch("/:id", authMiddleware, async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const updateData = req.body; // данные для обновления
+
+    // Метод edit должен принимать id и объект с данными для обновления
+    const updatedTwit = await twistService.edit(id, updateData);
+
+    // При успешном обновлении возвращаем обновленный объект
+    res.status(200).json(updatedTwit);
+    return;
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+    return;
+  }
+});
+
 router.get("/", async (req: Request, res: Response) => {
   const twits = await twistService.getTwits();
   res.json(twits);

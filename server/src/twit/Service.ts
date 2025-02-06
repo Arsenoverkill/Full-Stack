@@ -24,6 +24,20 @@ export class TwitService {
       throw new Error("Failed to delete twit");
     }
   }
+  async edit(id: string, data: Partial<Twit>): Promise<Twit> {
+    try {
+      return await this.prisma.twit.update({
+        where: {
+          id: id,
+        },
+        data: data,
+      });
+    } catch (error) {
+      logger.error(error);
+      throw new Error("Failed to update twit");
+    }
+  }
+
   async getTwits(): Promise<Twit[]> {
     try {
       return await this.prisma.twit.findMany();
