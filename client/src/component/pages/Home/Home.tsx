@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import scss from "./Home.module.scss";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 interface TwitsType {
   id: string;
@@ -12,6 +13,10 @@ interface TwitsType {
 
 const Home = () => {
   const [api, setApi] = useState<TwitsType[]>([]);
+  const [id, setId] = useState<string>("");
+
+  const { setValue, register, handleSubmit } = useForm<TwitsType>();
+
   async function getApi() {
     try {
       const response = await axios.get(
@@ -52,6 +57,20 @@ const Home = () => {
       console.error("Axios error:", error);
     }
   }
+
+  const onSubmit: SubmitHandler<TwitsType> = async (data) => {
+    await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/twits/${id}`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer arsen4ik`,
+        },
+      }
+    );
+    setId("");
+  };
+
   useEffect(() => {
     getApi();
   }, []);
@@ -63,14 +82,34 @@ const Home = () => {
           <div className={scss.twits}>
             {api.map((twit) => (
               <div className={scss.twit} key={twit.id}>
-                <h4>{twit.text}</h4>
+                {id == twit.id ? (
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <input
+                      type="text"
+                      {...register("text", { required: true })}
+                    />
+                    <button type="submit">Save</button>
+                  </form>
+                ) : (
+                  <h4>{twit.text}</h4>
+                )}
                 <p className={scss.createdAt}>
                   Created at: {new Date(twit.createdAt).toLocaleDateString()}
                 </p>
                 <p className={scss.updatedAt}>
                   Updated at: {new Date(twit.updatedAt).toLocaleDateString()}
                 </p>
-                <button onClick={() => deletedApi(twit.id)}>Delete</button>
+                <div className={scss.btns}>
+                  <button onClick={() => deletedApi(twit.id)}>Delete</button>
+                  <button
+                    onClick={() => {
+                      setValue("text", twit.text);
+                      setId(twit.id);
+                    }}
+                  >
+                    Edit
+                  </button>
+                </div>
               </div>
             ))}
           </div>
