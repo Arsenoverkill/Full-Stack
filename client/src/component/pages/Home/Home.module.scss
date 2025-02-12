@@ -56,7 +56,6 @@
           border-radius: 5px;
           cursor: pointer;
           transition: background 0.2s ease;
-          margin-top: 1rem;
 
           &:hover {
             background: #0056b3;
@@ -66,6 +65,89 @@
             outline: none;
             box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
           }
+        }
+        .updatedAt {
+          margin-bottom: 1rem;
+        }
+
+        // EDIT
+        form {
+          .createdAt {
+            margin-top: 0.6rem;
+          }
+        }
+        .inputWrapper {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .inputGroup {
+          position: relative;
+          flex: 1;
+          margin: 0;
+        }
+
+        .input {
+          width: 100%;
+          font-size: 1rem;
+          padding: 5px 5px;
+          border: none;
+          border-bottom: 1px solid #515151;
+          background: transparent;
+          outline: none;
+          transition: border-color 0.3s;
+        }
+
+        .input:focus {
+          border-color: #5264ae;
+        }
+
+        .bar {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          height: 2px;
+          width: 0;
+          background: #5264ae;
+          transition: width 0.3s;
+        }
+
+        .input:focus ~ .bar {
+          width: 100%;
+        }
+        .btnClose {
+          padding: 0.6rem 0.8rem;
+          background: #ddd;
+          color: #333;
+          border: none;
+          border-radius: 50%;
+          cursor: pointer;
+          transition: background 0.3s, transform 0.2s;
+          font-size: 0.8rem;
+          font-weight: bold;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          &:hover {
+            background: #bbb;
+            transform: scale(1.1);
+          }
+        }
+
+        .btnSave {
+          padding: 10px 20px;
+          background: #5264ae;
+          color: #fff;
+          border: none;
+          border-radius: 3px;
+          cursor: pointer;
+          transition: background 0.3s;
+        }
+
+        .btnSave:hover {
+          background: #415f9f;
         }
       }
     }
